@@ -38,6 +38,29 @@ app.get("/ruta4", (req, res)=>{
         `)
 })
 
+app.get("/ruta5/saludo/:nombre", (req, res)=>{
+    const saludo = req.params.saludo || "Hola bienvenida"
+    const nombre = req.params.nombre || "Nicol"
+    res.send(`<h1>Hola ${nombre}, ${saludo} </h1>`)
+})
+
+app.get("/ruta6/producto/:nombre", (req, res)=>{
+    const nombre  = req.params.nombre || "NADA"
+    
+    const productos={
+        id:1, 
+        nombre_producto: nombre,
+        stock: 23,
+        precio_uni: 2500,
+        categoria: "Vestuario"
+    };
+
+    res.json(productos);
+});
+
+
+
+
 app.listen(port, () => {
 console.log( `Servidor: http://localhost:${port} `);
 });
