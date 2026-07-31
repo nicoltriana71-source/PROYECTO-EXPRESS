@@ -15,3 +15,14 @@ Crear rama: git bvranch nombre_rama
 Crear rama y pasarse a ella: git checkout -b nombre_rama 
 
 Cambiar de rama: git checkout nombre_rama 
+
+
+Ver configuracion de git: git config --global --list
+git config --list
+
+Borrar condfiguracion: git config --global --unset user.name
+git config --global --unset user.email
+
+Para eliminar el vinculo de un repositorio: git config --unset remote.origin.url
+
+Para vincularlo con mi repositorio: git config remote.origin.url https://Mirepositorio_remoto.git
