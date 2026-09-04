@@ -13,5 +13,12 @@
     "correo": "nioltriana@gmail.com",
     "imagen": "/imagenes/mifo",
     "clave": "abc123"
+  },
+  {
+    "id": "3",
+    "nombre": "nicol",
+    "correo": "nicol@gmail.com",
+    "clave": "246685",
+    "imagen": "/misImagenes/1788550830495.avif"
   }
 ]

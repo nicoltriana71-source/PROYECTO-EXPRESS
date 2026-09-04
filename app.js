@@ -10,8 +10,23 @@ app.use(express.urlencoded({extended:true}))
 //LEER ARCHIVO
 const sistemaArchivo = require("fs")
 const ruta = require("path")
-
 const rutaArchivo = ruta.join(__dirname, "datos.json")
+
+//LIBRERIA PARA SUBIR ARCHIVOS
+const multer = require("multer")
+//CONFIGURAR EL ALMACENAMIENTO ARCHIVOS 
+const almacenamiento = multer.diskStorage({
+    destination:(req, file, cb)=>{
+        cb(null, "misImagenes/")
+    },
+    filename:(req, file, cb)=>{
+        const extension = ruta.extname(file.originalname)
+        cb(null, `${Date.now()}${extension}`)
+    }
+})
+
+const cargar = multer({storage: almacenamiento})
+
 
 app.get("/", (req, res) => {
 res.send("API REST APRENDICES");
@@ -39,9 +54,10 @@ app.get("/api/aprendices/:id", (req, res) => {
 })
 
 //ENPOINT PARA CREAR APRENDICES
-app.post("/api/aprendices/", (req, res) => {
+app.post("/api/aprendices/", cargar.single("imagen"), (req, res) => {
     const datosAprendiz = req.body
-    
+    //AGREGAR LA RUTA DE LA IMAGEN 
+    datosAprendiz.imagen = req.file? `/misImagenes/${req.file.filename}`: "sin imagen"
     //LEER ARCHIVO JSON
     sistemaArchivo.readFile(rutaArchivo, "utf-8", (error, datos) => {
         if (error){
