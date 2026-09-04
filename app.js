@@ -7,16 +7,29 @@ const port = process.env.PUERTO || 3100;
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+//LEER ARCHIVO
+const sistemaArchivo = require("fs")
+const ruta = require("path")
+
+const rutaArchivo = ruta.join(__dirname, "datos.json")
+
 app.get("/", (req, res) => {
 res.send("API REST APRENDICES");
 });
 
 //ENPOINT PARA LISTAR APRENDICES 
 app.get("/api/aprendices",(req, res) => {
-    res.status(200).json({
-        "mensaje" : "Lista de aprendices"
+
+    //LEER ARCHIVO JSON
+    sistemaArchivo.readFile(rutaArchivo, "utf-8", (error, datos) => {
+        if (error){
+            return res.status(500).json({Error: "No se puede leer archivo o BD"})
+        }
+        const listaAprendices = JSON.parse(datos)
+        res.status(200).json({"mensaje" : listaAprendices})
     })
 })
+
 
 //ENPOINT PARA LISTAR 1 APRENDIZ
 app.get("/api/aprendices/:id", (req, res) => {
@@ -27,8 +40,22 @@ app.get("/api/aprendices/:id", (req, res) => {
 
 //ENPOINT PARA CREAR APRENDICES
 app.post("/api/aprendices/", (req, res) => {
-    res.status(200).json({
-        "mensaje": "Crear aprendices"
+    const datosAprendiz = req.body
+    
+    //LEER ARCHIVO JSON
+    sistemaArchivo.readFile(rutaArchivo, "utf-8", (error, datos) => {
+        if (error){
+            return res.status(500).json({Error: "No se puede leer archivo o BD"})
+        }
+        const listaAprendices = JSON.parse(datos)
+        //adicionar el nuevo aprendiz a la lista 
+        listaAprendices.push(datosAprendiz)
+        sistemaArchivo.writeFile(rutaArchivo, JSON.stringify(listaAprendices, null, 2), (error)=>{
+            if(error){
+                 return res.status(500).json({Error: "No se puede escribir en el archivo o la BD"})
+            }
+            res.status(200).json({"mensaje" : "Aprendiz creado", "Datos Aprendiz": datosAprendiz})
+        })
     })
 })
 

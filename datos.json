@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nombre": "Nicol",
+    "correo": "nioltriana@gmail.com",
+    "imagen": "/imagenes/mifo",
+    "clave": "abc123"
+  },
+  {},
+  {
+    "id": 1,
+    "nombre": "Nicol",
+    "correo": "nioltriana@gmail.com",
+    "imagen": "/imagenes/mifo",
+    "clave": "abc123"
+  }
+]
