@@ -111,6 +111,12 @@ app.delete("/api/aprendices/:id", (req, res) => {
 app.get("/error", (req, res, next) =>{
     next(new Error("Error intencional de mi app"))
 })
+
+//RUTA PROTEGIDA
+app.get("/api/rutaprotegida", (req, res) => {
+    res.status(200).json({mensaje: "Esta es mi ruta protegida !!!"})
+})
+
 app.use(manejadorErrores)
 
 
