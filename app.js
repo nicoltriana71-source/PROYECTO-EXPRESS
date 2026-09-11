@@ -5,8 +5,9 @@ const port = process.env.PUERTO || 3100;
 //IMPORTACION DE MIDLERWARE
 const resgistroMiddlerware = require ("./middlerware/registroMiddlerware")
 const manejadorErrores = require ("./middlerware/manejadorErrores")
+const autenticacion = require ("./middlerware/autenticacion")
 
-//midderware para parsear datos dr body
+//midderware para parsear datos del body
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
@@ -113,11 +114,26 @@ app.get("/error", (req, res, next) =>{
 })
 
 //RUTA PROTEGIDA
-app.get("/api/rutaprotegida", (req, res) => {
+app.get("/api/rutaprotegida", autenticacion, (req, res) => {
     res.status(200).json({mensaje: "Esta es mi ruta protegida !!!"})
 })
 
 app.use(manejadorErrores)
+
+//ENPOINT DE LOGIN (INICIO DE SESION)
+app.post("/api/login", (req,res) => {
+    //SIMULAR DATOS DE LA BASE DE DATOS
+    const usuarioBd ={
+        "usuario": "Nicol",
+        "clave": "abc123"
+    }
+    const {usuario, clave} = req.body
+    //VALIDAR DATOS
+    if (usuario !== usuarioBd.usuario || clave !== usuarioBd.clave){
+        res.status(400).json({mensaje: "Credenciales no validas, usuario o clave incorrectos"})
+    }
+    
+})
 
 
 app.listen(port, () => {
