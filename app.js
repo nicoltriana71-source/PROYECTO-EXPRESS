@@ -4,6 +4,7 @@ require('dotenv').config();
 const port = process.env.PUERTO || 3100; 
 //IMPORTACION DE MIDLERWARE
 const resgistroMiddlerware = require ("./middlerware/registroMiddlerware")
+const manejadorErrores = require ("./middlerware/manejadorErrores")
 
 //midderware para parsear datos dr body
 app.use(express.json())
@@ -19,6 +20,7 @@ app.use((req, res, next) =>{
 })
 
 app.use(resgistroMiddlerware)
+
 
 //LEER ARCHIVO
 const sistemaArchivo = require("fs")
@@ -104,6 +106,12 @@ app.delete("/api/aprendices/:id", (req, res) => {
     })
 })
 
+
+//PROVOCAR ERROR
+app.get("/error", (req, res, next) =>{
+    next(new Error("Error intencional de mi app"))
+})
+app.use(manejadorErrores)
 
 
 app.listen(port, () => {
