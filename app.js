@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const port = process.env.PUERTO || 3100; 
+const jwt = require("jsonwebtoken")
 //IMPORTACION DE MIDLERWARE
 const resgistroMiddlerware = require ("./middlerware/registroMiddlerware")
 const manejadorErrores = require ("./middlerware/manejadorErrores")
@@ -132,7 +133,14 @@ app.post("/api/login", (req,res) => {
     if (usuario !== usuarioBd.usuario || clave !== usuarioBd.clave){
         res.status(400).json({mensaje: "Credenciales no validas, usuario o clave incorrectos"})
     }
-    
+    //CREACION DE VARIABLE PRA ALMACENAR TOKEN
+    const token = jwt.sign(
+        //datos del usuario
+        {"usuario": req.usuario},
+        //generar token
+        process.env.JWT_SECRET, {expiresIn: "1h"}
+    )
+    res.json({token})
 })
 
 
