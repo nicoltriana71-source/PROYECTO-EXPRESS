@@ -20,5 +20,23 @@
     "correo": "nicol@gmail.com",
     "clave": "246685",
     "imagen": "/misImagenes/1788550830495.avif"
+  },
+  {
+    "Nombre": "Maira",
+    "edad": 17,
+    "correo": "maira45@gmail.com",
+    "imagen": "sin imagen"
+  },
+  {
+    "NOMBRE": "breiner",
+    "EDAD": 17,
+    "CORREO": "breiner45@gmaul.com",
+    "imagen": "sin imagen"
+  },
+  {
+    "NOMBRE": "breiner",
+    "EDAD": 17,
+    "CORREO": "breiner45@gmaul.com",
+    "imagen": "sin imagen"
   }
 ]

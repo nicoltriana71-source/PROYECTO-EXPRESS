@@ -2,10 +2,23 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const port = process.env.PUERTO || 3100; 
+//IMPORTACION DE MIDLERWARE
+const resgistroMiddlerware = require ("./middlerware/registroMiddlerware")
 
 //midderware para parsear datos dr body
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+
+//midderware propios 
+
+//Este midderware se ejecuta siempreque hagamos una peticion (GET, POST, PUT-PACH, DELETE)
+app.use((req, res, next) =>{
+    console.log(`Tiempo milisegundos: ${Date.now()}`)
+    console.log(`Fecha: ${new Date().toISOString()}`)
+    next()
+})
+
+app.use(resgistroMiddlerware)
 
 //LEER ARCHIVO
 const sistemaArchivo = require("fs")
@@ -55,6 +68,8 @@ app.get("/api/aprendices/:id", (req, res) => {
 
 //ENPOINT PARA CREAR APRENDICES
 app.post("/api/aprendices/", cargar.single("imagen"), (req, res) => {
+    //VALIDAR QUE SE ENVIEN DATOS
+
     const datosAprendiz = req.body
     //AGREGAR LA RUTA DE LA IMAGEN 
     datosAprendiz.imagen = req.file? `/misImagenes/${req.file.filename}`: "sin imagen"
@@ -89,22 +104,7 @@ app.delete("/api/aprendices/:id", (req, res) => {
     })
 })
 
-app.post("/rutaJson", (req, res) => {
-    const todosDatos = req.body
-    const edad = req.body.edad2
-    if (edad >= 18) {
-        res.json({mensaje: "Es mayor de edad"})
-     } else 
-        res.json({mensaje: "Es menor de edad"})
 
-})
-
-app.post("/rutaFormulario", (req, res) => {
-    const todosDatos = req.body
-    const programa = req.body.programa
-    
-    res.json({TodosDatos: todosDatos, MiPrograma: programa})
-})
 
 app.listen(port, () => {
 console.log( `SERVIDOR: http://localhost:${port}`);
