@@ -4,9 +4,9 @@ require('dotenv').config();
 const port = process.env.PUERTO || 3100; 
 const jwt = require("jsonwebtoken")
 //IMPORTACION DE MIDLERWARE
-const resgistroMiddlerware = require ("./middlerware/registroMiddlerware")
-const manejadorErrores = require ("./middlerware/manejadorErrores")
-const autenticacion = require ("./middlerware/autenticacion")
+const resgistroMiddlerware = require ("./src/middlerware/registroMiddlerware")
+const manejadorErrores = require ("./src/middlerware/manejadorErrores")
+const autenticacion = require ("./src/middlerware/autenticacion")
 
 //midderware para parsear datos del body
 app.use(express.json())
