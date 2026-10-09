@@ -1,12 +1,11 @@
-//AGRUPA LAS RUTAS DE MI APLICACION
-const {Router} = require("express")
-const enrutador = Router()
+//agregar las rutas de mi aplicacion 
+const {Router}=require("express")
+const enrutador =Router()
 const pruebaRouter = require("./pruebaRouter")
-const usuariosRouter = require("./pruebaRouter")
+const usuariosRouter = require ("./usuariosRouter")
 
 enrutador.use("/rutaPrueba", pruebaRouter)
-//EJEMPLO
-enrutador.use("/usuarios", usuariosRouter)
+//ejemplo 
+enrutador.use ("/usuarios", usuariosRouter)
 
-module.exports = enrutador
-
+module.exports= enrutador

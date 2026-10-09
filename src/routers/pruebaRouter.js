@@ -1,13 +1,11 @@
-//RUTA DE SOLO PRUEBA 
-const {Router} = require("express")
-const enrutador = Router()
-const mostrarRuta = require("../controllers/rutaPruebaController.js")
-const mostrarUsuarios = require("../controllers/usuariosController.js")
+//ruta de solo prueba 
+const {Router}=require("express")
+const enrutador =Router()
+const mostrarRuta = require ("../controllers/rutaPruebaController")
+const {mostrarRutaUsuarios} = require ("../controllers/usuariosController")
 
-//FUNCION (req,res) DEBE IR EN EL CONTROLADOR
-enrutador.get("/rutaPersonal",mostrarRuta)
-enrutador.get("/usuarios",mostrarUsuarios)
+//funcion (req,res) debe ir en un controlador 
+enrutador.get("/rutaPersonal", mostrarRuta)
+//enrutador.get ("/usuarios", mostrarRutaUsuarios)
 
-
-module.exports = enrutador
-
+module.exports= enrutador
