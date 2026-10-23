@@ -19,9 +19,9 @@
     "multer": "^2.3.0"
   },
   "devDependencies": {
-    "@prisma/adapter-pg": "^7.10.0",
-    "@prisma/client": "^7.10.0",
-    "prisma": "^7.10.0",
+    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "prisma": "^7.10.1",
     "tsx": "^4.23.15"
   }
 }
